@@ -23,7 +23,7 @@ end
 
 def print(students)
 	students.each_with_index do |student, index|
-		if student[:name][0] == "D" # can also use .start_with? "D"
+		if student[:name].length < 12 # character length less than 12 characters including space
 		puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
 		end
 	end

@@ -1,16 +1,20 @@
 def input_students
-	puts "Please enter the names of the students"
+	puts "Please enter the name of the student and hit return"
+	puts "Then enter the year they were born and hit return"
 	puts "To finish, just hit return twice"
 	# create an empty array
 	students = []
 	# get the first name
 	name = gets.chomp
+	yob = gets.chomp # year of birth
 	# while the name is not empty, repeat this code
 	while !name.empty? do	
 	# add the student hash to the array
-	students << {name: name, cohort: :november}
+	students << {name: name, cohort: :november, year_of_birth: yob}
 	# get another name from the user
+	puts "Add another student with their year of birth"
 	name = gets.chomp
+	yob = gets.chomp
 	end
 	# return the array of students
 	students
@@ -27,7 +31,7 @@ def print(students)
 	counter = 0
 	while counter < students.length
 		student = students[counter]
-		puts "#{counter+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+		puts "#{counter+1}. #{student[:name]} (#{student[:cohort]} cohort), born in is #{student[:year_of_birth]}"
 		counter += 1
 	end
 end

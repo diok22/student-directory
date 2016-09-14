@@ -27,7 +27,7 @@ def input_students
 		puts "Name: #{last_student[:name]} \nCohort: #{last_student[:cohort]} \nBorn in: #{last_student[:Year_of_birth]}"
 		puts ""
 		puts "You have the following options:"
-		puts "Type 'no' to delete the last student"
+		puts "Type 'no' to delete the last student and re-enter details"
 		puts "Hit 'return' to add another student"
 		puts "Type 'exit' to finish adding students and show a list of all students"
 		puts ""
@@ -41,6 +41,13 @@ def input_students
 	end
 	# returning the students array
 	students
+
+	# grouping cohorts
+	puts "List of students grouped by Cohorts:"
+	puts "----------"
+	cohorts = []
+	cohorts << students.group_by {|student| student[:cohort].upcase}.sort
+	puts cohorts
 end
 
 def print_header

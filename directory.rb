@@ -19,7 +19,14 @@ def input_students
 			end
 		end
 
+
 		students << student_hash # adding the student information hash to the students array
+		puts
+		if students.count == 1
+			puts "Now he have 1 student"
+		else
+			puts "Now we have #{students.count} students"
+		end
 		puts "------------"
 		# review the last student added
 		last_student = students.last

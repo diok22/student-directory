@@ -11,7 +11,7 @@ def input_students
 		student_hash = {name: "Unknown detail", cohort: "Unknown detail", Year_of_birth: "Unknown detail"}
 		student_hash.each do |key, value|
 			puts "Enter #{key}"
-			input = gets.chomp.capitalize.to_sym # capitalizing the input from the user and converting symbol
+			input = gets[0..-2].capitalize.to_sym # capitalizing the input from the user and converting symbol
 			if input != "".to_sym
 				student_hash[key] = input
 			else
@@ -38,7 +38,7 @@ def input_students
 		puts "Hit 'return' to add another student"
 		puts "Type 'exit' to finish adding students and show a list of all students"
 		puts ""
-		input2 = gets.chomp
+		input2 = gets[0..-2]
 		if input2 == "no"
 			students.pop # removing the last student hash
 		elsif input2 == "exit"

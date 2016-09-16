@@ -49,7 +49,7 @@ def process(selection)
   when "3"
     save_students  
   when "4"
-    load_students
+    try_load_students
   when "9"
     exit # this will cause the program to terminate
   else
@@ -79,16 +79,26 @@ def load_students(filename = "students.csv")
 end
 
 def try_load_students
-	filename = ARGV.first # first argument from the command line
-	return if filename.nil? # get out the method if it isnt given
+  if ARGV.empty?
+    filename = "students.csv"
+  else
+    filename = ARGV[0]
+  end
+
+	# first argument from the command line
+	# return if filename.nil? # get out the method if it isnt given
 	if File.exists?(filename) # if it exists
 		load_students(filename)
-		puts "Loaded #{students.count} from #{filename}"
-	else #ig it doesn't exist
+		puts "Loaded #{@students.count} from #{filename}"
+	else #if it doesn't exist
 	puts "Sorry, #{filename} doesn't exist."
 	exit # quit the program
 	end
 end
+
+
+#### exercise 14.1
+# creating a new method and introducing name as a global variable
 
 def add_to_students_hash
   @students << {name: $name, cohort: :november}
@@ -113,4 +123,5 @@ def print_footer
   end
 end
 
+try_load_students
 interactive_menu

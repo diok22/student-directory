@@ -30,8 +30,8 @@ def print_menu
   puts
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load the list from a file"
   puts "9. Exit" # 9 because we'll be adding more items
   puts
 end
@@ -56,14 +56,16 @@ def process(selection)
     show_students
   when "3"
     puts "Accepted input"
-    puts "Save the list to students.csv"
+    puts "Save the list to file"
     puts
-    save_students
+    asking_for_filename
+    save_student
   when "4"
     puts "Accepted input"
-    puts "Load the list from students.csv"
+    puts "Load the list from file"
     puts
-    try_load_students
+    asking_for_filename
+    load_students(@filename)
   when "9"
     puts "Accepted input"
     puts "Exit"
@@ -74,9 +76,9 @@ def process(selection)
   end
 end
 
-def save_students
+def save_student
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(@filename, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -86,8 +88,9 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+def load_students(filename)
+  filename = @filename
+  file = File.open(@filename = filename, "r")
   file.readlines.each do |line|
     $name, cohort = line.chomp.split(",")
     add_to_students_hash
@@ -97,23 +100,30 @@ end
 
 def try_load_students
   if ARGV.empty?
-    filename = "students.csv"
+    @filename = "students.csv"
   else
-    filename = ARGV[0]
+    @filename = ARGV[0]
   end
 
-	# first argument from the command line
-	# return if filename.nil? # get out the method if it isnt given
-	if File.exists?(filename) # if it exists
-		load_students(filename)
-		puts "Loaded #{@students.count} from #{filename}"
+  if File.exists?(@filename) # if it exists
+    load_students(@filename)
+    puts "Loaded #{@students.count} from #{@filename}"
     puts
-	else #if it doesn't exist
-	puts "Sorry, #{filename} doesn't exist."
-	exit # quit the program
-	end
+  else #if it doesn't exist
+  puts "Sorry, #{@filename} doesn't exist."
+  exit # quit the program
+  end
 end
 
+def asking_for_filename
+  puts "Type the name of the file or hit enter to use students.csv"
+  ask_file = STDIN.gets.chomp
+  if ask_file.empty? == true
+    @filename = "students.csv"
+  else
+    @filename = ask_file
+  end
+end
 
 #### exercise 14.1
 # creating a new method and introducing name as a global variable

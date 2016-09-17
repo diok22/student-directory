@@ -78,25 +78,28 @@ end
 
 def save_student
   # open the file for writing
-  file = File.open(@filename, "w")
+  file = File.open(@filename, "w") do |file|
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
+  puts "Saved"
 end
+
 
 def load_students(filename)
   filename = @filename
-  file = File.open(@filename = filename, "r")
-  file.readlines.each do |line|
-    $name, cohort = line.chomp.split(",")
-    add_to_students_hash
+  file = File.open(@filename = filename, "r") do |file|
+    file.readlines.each do |line|
+      $name, cohort = line.chomp.split(",")
+      add_to_students_hash
+    end
   end
-  file.close
-end
+  puts "Loaded"
+end  
 
 def try_load_students
   if ARGV.empty?
